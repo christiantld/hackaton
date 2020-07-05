@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import knex from "../database/connection";
+import { Request, Response } from 'express';
+import knex from '../database/connection';
 
-//TODO criar um repository e um Service para esse controller
+// TODO criar um repository e um Service para esse controller
 class PointsControler {
   async store(request: Request, response: Response) {
     const {
@@ -29,7 +29,7 @@ class PointsControler {
       services_id,
     };
 
-    const insertedID = await knex("points").insert(point);
+    const insertedID = await knex('points').insert(point);
 
     const point_id = insertedID[0];
 
@@ -39,14 +39,14 @@ class PointsControler {
   async show(request: Request, response: Response) {
     const { id } = request.params;
 
-    const pointQuery = await knex("points").where("id", id).first();
+    const pointQuery = await knex('points').where('id', id).first();
 
     if (!pointQuery) {
-      return response.status(400).json({ message: "Point not Found" });
+      return response.status(400).json({ message: 'Point not Found' });
     }
 
-    const service = await knex("services")
-      .where("id", pointQuery.services_id)
+    const service = await knex('services')
+      .where('id', pointQuery.services_id)
       .first();
 
     const {
@@ -84,19 +84,19 @@ class PointsControler {
   async index(request: Request, response: Response) {
     const { city, uf, service } = request.query;
 
-    const pointsQuery = await knex("points")
-      .join("services", "points.services_id", "=", "services.id")
-      .where("services.id", Number(service))
-      .where("city", String(city))
-      .where("uf", String(uf))
+    const pointsQuery = await knex('points')
+      .join('services', 'points.services_id', '=', 'services.id')
+      .where('services.id', Number(service))
+      .where('city', String(city))
+      .where('uf', String(uf))
       .distinct()
-      .select("points.*", "services.type");
+      .select('points.*', 'services.type');
 
     if (!pointsQuery) {
-      return response.status(400).json({ message: "Point not Found" });
+      return response.status(400).json({ message: 'Point not Found' });
     }
 
-    const serializedPoints = pointsQuery.map((point) => {
+    const serializedPoints = pointsQuery.map(point => {
       return {
         ...point,
         image: `http://192.168.0.14:3333/temp/${point.image}`,

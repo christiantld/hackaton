@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
-import knex from "../database/connection";
+import { Request, Response } from 'express';
+import knex from '../database/connection';
 
 class ServicesController {
   async index(request: Request, response: Response) {
-    const services = await knex("services").select("*");
+    const services = await knex('services').select('*');
 
-    const serializedServices = services.map((service) => {
+    const serializedServices = services.map(service => {
       return {
         id: service.id,
         name: service.type,

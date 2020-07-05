@@ -1,37 +1,38 @@
-import knex from "../database/connection";
-//import * as Yup from "yup";
-import { Request, Response } from "express";
-import { compare } from "bcryptjs";
-import jwt from "jsonwebtoken";
-import auth from "../config/auth";
+// import * as Yup from "yup";
+import { Request, Response } from 'express';
+import { compare } from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import knex from '../database/connection';
+import auth from '../config/auth';
 
 class SessionController {
   async store(request: Request, response: Response) {
     const { email, password } = request.body;
 
-    const point = await knex("points")
-      .where("email", email)
-      .select("id", "name")
+    const point = await knex('points')
+      .where('email', email)
+      .select('id', 'name')
       .first();
 
-    const getPassword = await knex("points")
-      .where("email", email)
-      .select("password_hash")
+    const getPassword = await knex('points')
+      .where('email', email)
+      .select('password_hash')
       .first();
 
     const password_hash = String(Object.values(getPassword));
 
     if (!point) {
-      response.status(404).json({ error: "User not found" });
+      response.status(404).json({ error: 'User not found' });
     }
 
+    // eslint-disable-next-line no-shadow
     function checkPassword(password: string) {
       return compare(password, password_hash);
     }
 
     if (!(await checkPassword(password))) {
       return response.status(401).json({
-        error: "Invalid Authentication",
+        error: 'Invalid Authentication',
       });
     }
 
