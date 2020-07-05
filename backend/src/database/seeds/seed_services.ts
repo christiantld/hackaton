@@ -10,15 +10,15 @@ export async function seed(knex: Knex): Promise<any> {
     .then(() => {
       // Inserts seed entries
       return knex('services').insert([
-        { type: 'Alimentação', image: 'alimentacao.svg' },
-        { type: 'Automotivo', image: 'automotivo.svg' },
-        { type: 'Beleza', image: 'beleza.svg' },
-        { type: 'Limpeza', image: 'limpeza.svg' },
-        { type: 'Mercado', image: 'mercado.svg' },
-        { type: 'Papelaria', image: 'papelaria.svg' },
-        { type: 'Pet', image: 'pet.svg' },
-        { type: 'Saúde', image: 'saude.svg' },
-        { type: 'Serviços Gerais', image: 'servicosGerais.svg' },
+        { type: 'Lanches', image: 'alimentacao.svg' },
+        { type: 'Pizza', image: 'automotivo.svg' },
+        { type: 'Vegetariana', image: 'beleza.svg' },
+        { type: 'Café', image: 'limpeza.svg' },
+        { type: 'Doces & Bolos', image: 'mercado.svg' },
+        { type: 'Padaria', image: 'papelaria.svg' },
+        { type: 'Asiática', image: 'pet.svg' },
+        { type: 'Italiana', image: 'saude.svg' },
+        { type: 'Açaí', image: 'servicosGerais.svg' },
       ]);
     });
 }
