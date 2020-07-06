@@ -141,6 +141,21 @@ export const Form = styled.form`
         color: #a0a0b2;
       }
 
+      .checkbox--options {
+        display: flex;
+        margin-top: 5px;
+
+        label {
+          font-weight: normal;
+        }
+      }
+
+      input[type="checkbox"] {
+        margin-right: 8px;
+        width: 18px;
+        height: 18px;
+      }
+
       label {
         font-size: 14px;
         margin-bottom: 8px;

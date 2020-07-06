@@ -33,6 +33,9 @@ const CreatePoint: React.FC = () => {
     whatsapp: "",
     email: "",
     site: "",
+    max_lotation: "",
+    delivery: "",
+    takeout: "",
   });
   const [ufs, setUfs] = useState<string[]>([]);
   const [selectedUf, setSelectedUf] = useState("0");
@@ -123,7 +126,15 @@ const CreatePoint: React.FC = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    const { name, email, whatsapp, site } = formData;
+    const {
+      name,
+      email,
+      whatsapp,
+      site,
+      delivery,
+      takeout,
+      max_lotation,
+    } = formData;
     const uf = selectedUf;
     const city = selectedCity;
     const services_id = Number(selectedService);
@@ -139,6 +150,9 @@ const CreatePoint: React.FC = () => {
     data.append("longitude", String(longitude));
     data.append("city", city);
     data.append("uf", uf);
+    data.append("delivery", delivery);
+    data.append("takeout", takeout);
+    data.append("max_lotation", max_lotation);
     data.append("services_id", String(services_id));
 
     if (selectedFile) {
@@ -215,6 +229,37 @@ const CreatePoint: React.FC = () => {
                 name="site"
                 id="site"
                 placeholder="www.seusite.com.br"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="field">
+              <label>Opções</label>
+              <div className="checkbox--options">
+                <input
+                  type="checkbox"
+                  name="delivery"
+                  id="delivery"
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="delivery">Delivery</label>
+              </div>
+              <div className="checkbox--options">
+                <input
+                  type="checkbox"
+                  name="takeout"
+                  id="takeout"
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="takeout">Take Out</label>
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="max_lotation">Lotação Máxima</label>
+              <input
+                type="number"
+                name="max_lotation"
+                id="max_lotation"
+                placeholder="Apenas números"
                 onChange={handleInputChange}
               />
             </div>
